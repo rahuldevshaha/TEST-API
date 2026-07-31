@@ -6,7 +6,7 @@ const BASE_URL = process.env.MOCKAPI_BASE_URL;
 
 
 if (!BASE_URL) {
-  console.warn("[MockAPI] WARNING: MOCKAPI_BASE_URL may not set in .env.");
+//console.warn("[MockAPI] WARNING: MOCKAPI_BASE_URL may not set in .env.");
 }
 
 const client = axios.create({
@@ -107,8 +107,6 @@ const deleteProduct = async (id) => {
 
 
 
-
-
 const deleteOneWithRetry = async (id, maxAttempts = 5) => {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -141,7 +139,7 @@ const deleteSelectedProducts = async (ids = []) => {
     } else {
       failedIds.push(id);
     }
-    await sleep(150); // small pacing gap between requests
+    await sleep(150);
   }
 
   invalidateProductsCache();

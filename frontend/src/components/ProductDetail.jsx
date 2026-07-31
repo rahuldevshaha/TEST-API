@@ -3,10 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useProduct, useDeleteProduct } from "../hooks/useProducts.js";
 import ConfirmDialog from "./ConfirmDialog.jsx";
 
-// Fields already rendered explicitly below - anything on the product NOT
-// in this list gets picked up automatically by the "extra fields" section
-// further down, so nothing ever silently stays hidden if a new field is
-// added to the product shape later.
+
 const KNOWN_FIELDS = [
   "id",
   "title",

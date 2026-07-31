@@ -1,4 +1,5 @@
-// Builds a compact page list like: 1 … 4 5 [6] 7 8 … 24
+
+
 function buildPageList(page, totalPages, siblingCount = 1) {
     const totalNumbers = siblingCount * 2 + 5; // first, last, current, 2*ellipsis-adjacent
     if (totalPages <= totalNumbers) {

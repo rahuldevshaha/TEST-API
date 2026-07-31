@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 export default function Modal({ title, onClose, children }) {
-  // Hide the page scrollbar while the modal is open so the background
-  // doesn't scroll/jump behind it, and restore it when the modal closes.
+
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     const originalPaddingRight = document.body.style.paddingRight;

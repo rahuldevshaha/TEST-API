@@ -26,15 +26,16 @@ const CATEGORIES = [
 ];
 
 const BRANDS = [
-  "Aurora",
-  "TerraFlask",
-  "Keytron",
-  "Basicwear",
-  "Brewmaster",
-  "Pathfinder",
-  "Craftline",
-  "Generic",
-  "Other",
+  "Walton",
+  "RFL",
+  "Aarong",
+  "Pran",
+  "Samsung",
+  "Apple",
+  "Nike",
+  "Adidas",
+  "Sony",
+  "Xiaomi",
 ];
 
 export default function ProductForm({ initialData, onSubmit, onCancel, submitting }) {

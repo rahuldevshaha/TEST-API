@@ -34,9 +34,7 @@ export default function ProductList() {
   const allOnPageSelected = products.length > 0 && products.every((p) => selectedIds.includes(p.id));
   const bulkDeleteBusy = deleteSelectedMutation.isPending;
 
-  // Fix: if the current page no longer exists (e.g. a search narrows the
-  // result set, or the last item on the last page gets deleted), snap back
-  // to the last valid page instead of showing an empty grid.
+
   useEffect(() => {
     if (!isLoading && !isFetching && page > totalPages) {
       setPage(totalPages);
@@ -68,9 +66,7 @@ export default function ProductList() {
     );
   };
 
-  // Instead of the native window.confirm() alert, we open a custom
-  // ConfirmDialog and remember *what* the user wants to delete via
-  // `confirmAction`, then run the actual mutation once they confirm.
+
   const [confirmAction, setConfirmAction] = useState(null); // { type: "one" | "selected", id? }
 
   const handleDeleteOne = (id) => {
@@ -93,9 +89,6 @@ export default function ProductList() {
       const idsToDelete = selectedIds;
       deleteSelectedMutation.mutate(idsToDelete, {
         onSuccess: (result) => {
-          // The backend now retries transient MockAPI failures internally,
-          // but if a handful still couldn't be deleted after retries,
-          // surface that instead of silently pretending everything worked.
           const failedIds = result?.failedIds || [];
           setSelectedIds(failedIds);
           closeConfirm();

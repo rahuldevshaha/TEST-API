@@ -37,6 +37,7 @@ export const useUpdateProduct = () => {
   });
 };
 
+
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -44,6 +45,7 @@ export const useDeleteProduct = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [PRODUCTS_KEY] }),
   });
 };
+
 
 export const useDeleteSelectedProducts = () => {
   const queryClient = useQueryClient();

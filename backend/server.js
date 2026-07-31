@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 
 if (!process.env.MOCKAPI_BASE_URL) {
   console.warn(
-    "[Startup] MOCKAPI_BASE_URL is not set - create a 'products' resource at https://mockapi.io and add its URL to .env"
+    "[Startup] MOCKAPI_BASE_URL is not Set!"
   );
 }
 

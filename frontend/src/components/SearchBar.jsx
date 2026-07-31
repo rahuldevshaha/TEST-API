@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export default function SearchBar({ value, onChange }) {
     const [local, setLocal] = useState(value);
 
-    // Debounce so we're not firing a query on every keystroke.
     useEffect(() => {
         const t = setTimeout(() => onChange(local), 350);
         return () => clearTimeout(t);
