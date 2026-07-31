@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Wireless Noise-Cancelling Headphones",
+    "description": "Over-ear headphones with active noise cancellation and 30-hour battery life.",
+    "category": "electronics",
+    "brand": "Aurora",
+    "price": 129.99,
+    "discountPercentage": 12,
+    "rating": 4.5,
+    "stock": 34,
+    "thumbnail": "https://placehold.co/300x300?text=Headphones"
+  },
+  {
+    "title": "Stainless Steel Water Bottle",
+    "description": "Insulated 750ml bottle that keeps drinks cold for 24 hours.",
+    "category": "home",
+    "brand": "TerraFlask",
+    "price": 24.5,
+    "discountPercentage": 0,
+    "rating": 4.7,
+    "stock": 120,
+    "thumbnail": "https://placehold.co/300x300?text=Bottle"
+  },
+  {
+    "title": "Mechanical Keyboard - Brown Switch",
+    "description": "Tactile 87-key mechanical keyboard with RGB backlighting.",
+    "category": "electronics",
+    "brand": "Keytron",
+    "price": 79.0,
+    "discountPercentage": 8,
+    "rating": 4.3,
+    "stock": 18,
+    "thumbnail": "https://placehold.co/300x300?text=Keyboard"
+  },
+  {
+    "title": "Organic Cotton T-Shirt",
+    "description": "Soft, breathable crew-neck t-shirt made from 100% organic cotton.",
+    "category": "clothing",
+    "brand": "Basicwear",
+    "price": 18.0,
+    "discountPercentage": 5,
+    "rating": 4.1,
+    "stock": 200,
+    "thumbnail": "https://placehold.co/300x300?text=T-Shirt"
+  },
+  {
+    "title": "Ceramic Pour-Over Coffee Dripper",
+    "description": "Hand-crafted ceramic dripper for a clean, full-flavored cup.",
+    "category": "home",
+    "brand": "Brewmaster",
+    "price": 32.0,
+    "discountPercentage": 0,
+    "rating": 4.8,
+    "stock": 45,
+    "thumbnail": "https://placehold.co/300x300?text=Coffee+Dripper"
+  },
+  {
+    "title": "Running Shoes - Trail Series",
+    "description": "Lightweight trail running shoes with reinforced grip soles.",
+    "category": "footwear",
+    "brand": "Pathfinder",
+    "price": 89.99,
+    "discountPercentage": 15,
+    "rating": 4.4,
+    "stock": 60,
+    "thumbnail": "https://placehold.co/300x300?text=Running+Shoes"
+  },
+  {
+    "title": "Portable Bluetooth Speaker",
+    "description": "Compact waterproof speaker with 12-hour playtime.",
+    "category": "electronics",
+    "brand": "Aurora",
+    "price": 45.0,
+    "discountPercentage": 10,
+    "rating": 4.2,
+    "stock": 75,
+    "thumbnail": "https://placehold.co/300x300?text=Speaker"
+  },
+  {
+    "title": "Leather Bifold Wallet",
+    "description": "Genuine leather wallet with RFID-blocking card slots.",
+    "category": "accessories",
+    "brand": "Craftline",
+    "price": 39.99,
+    "discountPercentage": 0,
+    "rating": 4.6,
+    "stock": 90,
+    "thumbnail": "https://placehold.co/300x300?text=Wallet"
+  }
+]
