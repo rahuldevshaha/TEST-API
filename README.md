@@ -26,6 +26,7 @@ backend/
   services/           # business logic + MockAPI client
   scripts/            # seed script
   server.js
+  Dockerfile
 
 frontend/
   src/
@@ -34,9 +35,13 @@ frontend/
     hooks/            # React Query hooks
     pages/            # route pages
     asset/css/        # styles
+  Dockerfile
+  nginx.conf
+
+docker-compose.yml
 ```
 
-## Setup
+## Setup (local, without Docker)
 
 ### 1. MockAPI
 
@@ -64,6 +69,29 @@ npm run dev
 
 Runs on `http://localhost:5173`.
 
+## Setup (Docker)
+
+Requires Docker and Docker Compose.
+
+1. Create `backend/.env` (see [Environment variables](#environment-variables) below).
+2. If your backend will run somewhere other than `http://localhost:5000`, update `VITE_API_BASE_URL` under the `frontend` build args in `docker-compose.yml` — Vite bakes this in at build time.
+3. Run:
+
+```bash
+docker compose up --build
+```
+
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:5000`
+
+To seed sample products into a running backend container:
+
+```bash
+docker compose exec backend npm run seed
+```
+
+Stop everything with `docker compose down`.
+
 ## Environment variables
 
 **backend/.env**
@@ -76,7 +104,7 @@ CACHE_TTL_SECONDS=60
 PRODUCT_DEFAULT_THUMB=https://placehold.co/300x300?text=%20
 ```
 
-**frontend/.env**
+**frontend/.env** (local dev only — ignored by the Docker build, which uses the compose build arg instead)
 
 ```
 VITE_API_BASE_URL=http://localhost:5000/api
