@@ -23,8 +23,7 @@ backend/
   controllers/      # route handlers
   middleware/        # caching, error handling
   routes/            # API routes
-  services/           # business logic + MockAPI client
-  scripts/            # seed script
+  services/           # business logic
   server.js
   Dockerfile
 
@@ -41,11 +40,18 @@ frontend/
 docker-compose.yml
 ```
 
-## Setup (local, without Docker)
+# Setup in Local:
 
+   #### First of All, Clone This Repo to Your PC.
+
+## 1. Setup without Docker
 ### 1. MockAPI
 
 Create a `products` resource at [mockapi.io](https://mockapi.io) and copy its base URL.
+or Try this as MOCKAPI_BASE_URL in ENV: https://6a6c64c39939b347cccec1e8.mockapi.io/api/v1/products
+##### N.B: This URL is valid for 2 months.
+
+
 
 ### 2. Backend
 
@@ -53,11 +59,10 @@ Create a `products` resource at [mockapi.io](https://mockapi.io) and copy its ba
 cd backend
 npm install
 cp .env.example .env   # add your MOCKAPI_BASE_URL
-npm run seed           # optional: populate sample products
-npm run dev
+npm nodemon server.js
 ```
 
-Runs on `http://localhost:5000`.
+Runs on Default `http://localhost:5000`.
 
 ### 3. Frontend
 
@@ -67,9 +72,10 @@ npm install
 npm run dev
 ```
 
-Runs on `http://localhost:5173`.
+Runs on Default`http://localhost:5173`.
 
-## Setup (Docker)
+
+## 2. Setup with Docker
 
 Requires Docker and Docker Compose.
 
@@ -84,13 +90,9 @@ docker compose up --build
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
 
-To seed sample products into a running backend container:
-
-```bash
-docker compose exec backend npm run seed
-```
 
 Stop everything with `docker compose down`.
+
 
 ## Environment variables
 
@@ -103,6 +105,9 @@ CLIENT_ORIGIN=http://localhost:5173
 CACHE_TTL_SECONDS=60
 PRODUCT_DEFAULT_THUMB=https://placehold.co/300x300?text=%20
 ```
+or Try this as MOCKAPI_BASE_URL in ENV: https://6a6c64c39939b347cccec1e8.mockapi.io/api/v1/products
+##### N.B: This URL is valid for 2 months.
+
 
 **frontend/.env** (local dev only — ignored by the Docker build, which uses the compose build arg instead)
 
@@ -112,11 +117,12 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ## API
 
-| Method | Endpoint                        | Description               |
-|--------|----------------------------------|----------------------------|
-| GET    | `/api/products`                  | List (search, page, limit) |
-| GET    | `/api/products/:id`               | Get one                    |
-| POST   | `/api/products`                   | Create                      |
-| PUT    | `/api/products/:id`               | Update                      |
-| DELETE | `/api/products/:id`               | Delete one                  |
-| POST   | `/api/products/delete-selected`   | Bulk delete (`{ ids: [] }`)  |
+| Method | Endpoint                        | Description                 |
+|--------|---------------------------------|-----------------------------|
+| GET    | `/api/health`                   | See Health                  |
+| GET    | `/api/products`                 | List (search, page, limit)  |
+| GET    | `/api/products/:id`             | Get one                     |
+| POST   | `/api/products`                 | Create                      |
+| PUT    | `/api/products/:id`             | Update                      |
+| DELETE | `/api/products/:id`             | Delete one                  |
+| POST   | `/api/products/delete-selected` | Bulk delete (`{ ids: [] }`) |
