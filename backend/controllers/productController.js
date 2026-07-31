@@ -2,6 +2,8 @@ const productService = require("../services/productService");
 const default_img =process.env.PRODUCT_DEFAULT_THUMB
 
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 
 
 //Create Product Controller
@@ -44,11 +46,12 @@ const getAll = async (req, res, next) => {
 
 
 
-
-// @route GET /api/products/:id
+//Read Product By ID Controller
 const getById = async (req, res, next) => {
   try {
-    const product = await productService.getProductById(req.params.id);
+    let ID = req.params.id;
+
+    const product = await productService.getProductById(ID);
     if (!product) {
       res.status(404);
       throw new Error(`Product with id ${req.params.id} not found`);
@@ -62,25 +65,37 @@ const getById = async (req, res, next) => {
 
 
 
-// @route PUT /api/products/:id
+//Update Product Controller
 const update = async (req, res, next) => {
   try {
-    const product = await productService.updateProduct(req.params.id, req.body);
+    const id = req.params.id;
+    const data = req.body;
+
+    const existing = await productService.getProductById(id);
+    if (!existing)
+    {return null;}
+
+    const product = await productService.updateProduct(id, data);
+
     if (!product) {
-      res.status(404);
-      throw new Error(`Product with id ${req.params.id} not found`);
+      return res.status(404).json({
+        success: false,
+        message: `Product with id ${id} not found`
+      });
     }
-    res.json({ success: true, data: product });
+
+    res.status(200).json({success: true, data: product});
+
   } catch (err) {
     next(err);
   }
 };
 
 
-
-// @route DELETE /api/products/:id
+//Delete Product Controller
 const deleteOne = async (req, res, next) => {
   try {
+
     const product = await productService.deleteProduct(req.params.id);
     if (!product) {
       res.status(404);
@@ -94,7 +109,7 @@ const deleteOne = async (req, res, next) => {
 
 
 
-// @route POST /api/products/delete-selected  body: { ids: [1,2,3] }
+//Delete Selected Product Controller
 const deleteSelected = async (req, res, next) => {
   try {
     const { ids } = req.body;

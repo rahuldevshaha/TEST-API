@@ -1,7 +1,5 @@
-const mockApiService = require("./mockApiService");
 const { invalidateProductsCache } = require("../config/cache");
 const axios = require("axios");
-const default_img =process.env.PRODUCT_DEFAULT_THUMB
 const BASE_URL = process.env.MOCKAPI_BASE_URL;
 
 
@@ -18,11 +16,14 @@ const client = axios.create({
 
 
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
 
 const createProduct = async (payload) => {
-  let product  = await client.post("/", payload);
+  const { data } = await client.post("/", payload);
   invalidateProductsCache();
-  return product;
+  return data;
 };
 
 
@@ -74,7 +75,10 @@ const getAllProducts = async ({ searchQuery, page = 1, limit = 20 }) => {
 
 const getProductById = async (id) => {
   try {
-    return await mockApiService.getById(id);
+
+    let {data} = await client.get(`/${id}`);
+    return data;
+
   } catch (err) {
     if (err.response?.status === 404) return null;
     throw err;
@@ -83,13 +87,11 @@ const getProductById = async (id) => {
 
 
 
-const updateProduct = async (id, payload) => {
-  const existing = await getProductById(id);
-  if (!existing) return null;
-
-  const product = await mockApiService.update(id, { ...existing, ...payload, id });
+const updateProduct = async (id, data) => {
+  const { data: updatedData } = await client.put(`/${id}`, data);
   invalidateProductsCache();
-  return product;
+  return updatedData;
+
 };
 
 
@@ -97,22 +99,20 @@ const updateProduct = async (id, payload) => {
 const deleteProduct = async (id) => {
   const existing = await getProductById(id);
   if (!existing) return null;
-
-  await mockApiService.remove(id);
+  const { data } = await client.delete(`/${id}`);
   invalidateProductsCache();
   return existing;
 };
 
 
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
 
 const deleteOneWithRetry = async (id, maxAttempts = 5) => {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
-      await mockApiService.remove(id);
+      const { data } = await client.delete(`/${id}`);
       return { id, ok: true };
     } catch (err) {
       if (err.response?.status === 404) {
@@ -121,8 +121,6 @@ const deleteOneWithRetry = async (id, maxAttempts = 5) => {
       if (attempt === maxAttempts) {
         return { id, ok: false };
       }
-      // Exponential backoff: 500ms, 1s, 2s, 4s - gives MockAPI's rate
-      // limiter time to reset before we hit it again with the same id.
       await sleep(500 * 2 ** (attempt - 1));
     }
   }
