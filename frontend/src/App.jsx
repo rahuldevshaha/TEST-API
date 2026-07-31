@@ -7,7 +7,7 @@ export default function App() {
         <div className="app-shell">
             <header className="app-header">
                 <Link to="/" className="brand">
-                    Test <span> Products</span> APIs xxxxxxxxxxxX
+                    Test <span> Products</span> APIs
                 </Link>
             </header>
 
