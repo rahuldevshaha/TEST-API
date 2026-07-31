@@ -1,6 +1,37 @@
 const productService = require("../services/productService");
+const default_img =process.env.PRODUCT_DEFAULT_THUMB
 
-// @route GET /api/products?search=&page=&limit=
+
+
+
+//Create Product Controller
+const create = async (req, res, next) => {
+  try {
+
+    let payloadData={
+      title: req.body.title,
+      description: req.body.description || "",
+      category: req.body.category || "",
+      price: Number(req.body.price) || 0,
+      discountPercentage: Number(req.body.discountPercentage) || 0,
+      rating: Number(req.body.rating) || 0,
+      stock: Number(req.body.stock) || 0,
+      brand: req.body.brand || "",
+      thumbnail: req.body.thumbnail || default_img,
+      images: req.body.images || [],
+      createdAt: new Date().toISOString(),
+    }
+    const product = await productService.createProduct(payloadData);
+    res.status(201).json({ success: true, data: product });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+
+
+//Read All Product Controller
 const getAll = async (req, res, next) => {
   try {
     const { search = "", page = 1, limit = 20 } = req.query;
@@ -10,6 +41,9 @@ const getAll = async (req, res, next) => {
     next(err);
   }
 };
+
+
+
 
 // @route GET /api/products/:id
 const getById = async (req, res, next) => {
@@ -25,15 +59,8 @@ const getById = async (req, res, next) => {
   }
 };
 
-// @route POST /api/products
-const create = async (req, res, next) => {
-  try {
-    const product = await productService.createProduct(req.body);
-    res.status(201).json({ success: true, data: product });
-  } catch (err) {
-    next(err);
-  }
-};
+
+
 
 // @route PUT /api/products/:id
 const update = async (req, res, next) => {
@@ -49,6 +76,8 @@ const update = async (req, res, next) => {
   }
 };
 
+
+
 // @route DELETE /api/products/:id
 const deleteOne = async (req, res, next) => {
   try {
@@ -62,6 +91,8 @@ const deleteOne = async (req, res, next) => {
     next(err);
   }
 };
+
+
 
 // @route POST /api/products/delete-selected  body: { ids: [1,2,3] }
 const deleteSelected = async (req, res, next) => {
@@ -77,6 +108,8 @@ const deleteSelected = async (req, res, next) => {
     next(err);
   }
 };
+
+
 
 module.exports = {
   getAll,
